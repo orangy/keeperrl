@@ -29,6 +29,7 @@ class Model : public EventListener {
   static Model* collectiveModel(View* view);
 
   static Model* splashModel(View* view, const Table<bool>& bitmap);
+  static Model* staticLevel(View* view, Table<int> level);
 
   /** Makes an update to the game. This method is repeatedly called to make the game run.
     Returns the total logical time elapsed.*/

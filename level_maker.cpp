@@ -1989,3 +1989,30 @@ LevelMaker* LevelMaker::grassAndTrees() {
   queue->addMaker(new Vegetation(0.8, 0.5, SquareType::GRASS, {SquareType::CANIF_TREE}, {1}));
   return new BorderGuard(queue, SquareType::BLACK_WALL);
 }
+
+class TableMaker : public LevelMaker {
+  public:
+  TableMaker(Table<int> l) : level(std::move(l)) {}
+
+  virtual void make(Level::Builder* builder, Rectangle area) override {
+    for (Vec2 v : area) {
+      SquareType type;
+      switch (level[v]) {
+        case 0: type = SquareType::BLACK_WALL; break;
+        case 1: type = SquareType::DOOR; break;
+        case 2: 
+        case 3: type = SquareType::FLOOR; break;
+      }
+      builder->putSquare(v, type);
+      if (level[v] == 3)
+        builder->getSquare(v)->setLandingLink(StairDirection::UP, StairKey::PLAYER_SPAWN);
+    }
+  }
+
+  private:
+  Table<int> level;
+};
+
+LevelMaker* LevelMaker::pngLevel(Table<int> level) {
+  return new TableMaker(std::move(level));
+}

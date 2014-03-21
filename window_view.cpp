@@ -40,8 +40,25 @@ View* View::createReplayView(ifstream& ifs) {
 }
 
 
+Table<int> WindowView::transformPng(const string& path) {
+  Image image;
+  CHECK(image.loadFromFile(path));
+  Table<int> ret(image.getSize().x, image.getSize().y);
+  for (Vec2 v : ret.getBounds())
+    if (image.getPixel(v.x, v.y) == sf::Color(255, 0, 0))
+      ret[v] = 1;
+    else 
+    if (image.getPixel(v.x, v.y) == sf::Color(0, 255, 255) || image.getPixel(v.x, v.y) == sf::Color(255, 255, 0))
+      ret[v] = 2;
+    else 
+    if (image.getPixel(v.x, v.y) == sf::Color(0, 0, 255))
+      ret[v] = 3;
+    else
+      ret[v] = 0;
+  return ret;
+}
 
-Rectangle maxLevelBounds(600, 600);
+Rectangle maxLevelBounds(1440, 600);
 Image mapBuffer;
 
 class Clock {

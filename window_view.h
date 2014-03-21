@@ -49,6 +49,8 @@ class WindowView: public View {
   
   static Color getFireColor();
 
+  static Table<int> transformPng(const string& path);
+
   private:
 
   void drawLevelMapPart(const Level* level, Rectangle levelPart, Rectangle bounds, const CreatureView* creature,

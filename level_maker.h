@@ -25,6 +25,7 @@ class LevelMaker {
   public:
   virtual void make(Level::Builder* builder, Rectangle area) = 0;
 
+  static LevelMaker* pngLevel(Table<int> level);
   static LevelMaker* roomLevel(CreatureFactory cfactory, vector<StairKey> up, vector<StairKey> down);
   static LevelMaker* cryptLevel(CreatureFactory cfactory, vector<StairKey> up, vector<StairKey> down);
   static LevelMaker* cellarLevel(CreatureFactory cfactory, SquareType wallType, StairLook stairLook,

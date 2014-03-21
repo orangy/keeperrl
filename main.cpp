@@ -14,6 +14,7 @@
 #include "statistics.h"
 #include "options.h"
 #include "technology.h"
+#include "window_view.h"
 
 
 using namespace boost::iostreams;
@@ -213,7 +214,7 @@ int main(int argc, char* argv[]) {
             model = loadGame(*savedGame);
           }
           else if (choice == 1)
-            model.reset(Model::heroModel(view));
+            model.reset(Model::staticLevel(view, WindowView::transformPng("rogue_level.png")));
           else {
             CHECK(choice == 0);
             model.reset(Model::collectiveModel(view));

@@ -603,3 +603,16 @@ void Model::showHighscore(bool highlightLast) {
   }
   view->presentList("High scores", scores);
 }
+  
+Model* Model::staticLevel(View* view, Table<int> level) {
+  Model* m = new Model(view);
+  int x = level.getBounds().getW();
+  int y = level.getBounds().getH();
+  Level* top = m->buildLevel(Level::Builder(x, y, "ROGUE!"), LevelMaker::pngLevel(std::move(level)), true);
+  PCreature player = m->makePlayer();
+  Level* start = top;
+  start->setPlayer(player.get());
+  start->landCreature(StairDirection::UP, StairKey::PLAYER_SPAWN, std::move(player));
+  return m;
+}
+
