@@ -19,7 +19,7 @@ const double ShortestPath::infinity = 1000000000;
 
 const int revShortestLimit = 15;
 
-const int maxSize = 600;
+const int maxSize = 1440;
 
 Table<double> ddist(maxSize, maxSize);
 Table<int> dirty(maxSize, maxSize, 0);

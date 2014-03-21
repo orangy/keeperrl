@@ -356,7 +356,7 @@ Tile getAsciiTile(const ViewObject& obj) {
     case ViewId::SNOW: return Tile(0x25ee, white, true);
     case ViewId::HILL: return Tile(0x1d022, darkGreen, true);
     case ViewId::WOOD_WALL: return Tile('#', darkBrown);
-    case ViewId::BLACK_WALL: return Tile('#', lightGray);
+    case ViewId::BLACK_WALL: return Tile(' ', black);
     case ViewId::YELLOW_WALL: return Tile('#', yellow);
     case ViewId::LOW_ROCK_WALL: return Tile('#', darkGray);
     case ViewId::HELL_WALL: return Tile('#', red);

@@ -45,6 +45,9 @@ Table<int> WindowView::transformPng(const string& path) {
   CHECK(image.loadFromFile(path));
   Table<int> ret(image.getSize().x, image.getSize().y);
   for (Vec2 v : ret.getBounds())
+    if (image.getPixel(v.x, v.y) == sf::Color(64, 64, 64))
+      ret[v] = 0;
+    else
     if (image.getPixel(v.x, v.y) == sf::Color(255, 0, 0))
       ret[v] = 1;
     else 
@@ -54,7 +57,7 @@ Table<int> WindowView::transformPng(const string& path) {
     if (image.getPixel(v.x, v.y) == sf::Color(0, 0, 255))
       ret[v] = 3;
     else
-      ret[v] = 0;
+      ret[v] = 4;
   return ret;
 }
 

@@ -610,9 +610,14 @@ Model* Model::staticLevel(View* view, Table<int> level) {
   int y = level.getBounds().getH();
   Level* top = m->buildLevel(Level::Builder(x, y, "ROGUE!"), LevelMaker::pngLevel(std::move(level)), true);
   PCreature player = m->makePlayer();
+  Creature* playerRef = player.get();
   Level* start = top;
   start->setPlayer(player.get());
   start->landCreature(StairDirection::UP, StairKey::PLAYER_SPAWN, std::move(player));
+  Location* loc = new Location();
+  loc->setBounds(Rectangle(x, y));
+  loc->setLevel(start);
+  playerRef->learnLocation(loc);
   return m;
 }
 

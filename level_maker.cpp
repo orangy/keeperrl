@@ -1998,10 +1998,11 @@ class TableMaker : public LevelMaker {
     for (Vec2 v : area) {
       SquareType type;
       switch (level[v]) {
-        case 0: type = SquareType::BLACK_WALL; break;
+        case 0: type = SquareType::ROCK_WALL; break;
         case 1: type = SquareType::DOOR; break;
         case 2: 
         case 3: type = SquareType::FLOOR; break;
+        default: type = SquareType::BLACK_WALL; break;
       }
       builder->putSquare(v, type);
       if (level[v] == 3)
