@@ -244,7 +244,7 @@ void displayMenuSplash() {
 void WindowView::displaySplash(View::SplashType type, bool& ready) {
   string text;
   switch (type) {
-    case View::CREATING: text = "Creating a new world, just for you..."; break;
+    case View::CREATING: text = "Loading the rogue level..."; break;
     case View::LOADING: text = "Loading the game..."; break;
     case View::SAVING: text = "Saving the game..."; break;
   }

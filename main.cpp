@@ -147,7 +147,7 @@ int main(int argc, char* argv[]) {
     view = View::createReplayView(input);
   }
   //Table<bool> splash = readSplashTable("splash.map");
-  int lastIndex = 0;
+ // int lastIndex = 0;
   view->initialize();
   while (1) {
     Item::identifyEverything();
@@ -166,12 +166,13 @@ int main(int argc, char* argv[]) {
     bool modelReady = false;
     messageBuffer.initialize(view);
     view->reset();
-    auto choice = forceMode > -1 ? Optional<int>(forceMode) : view->chooseFromList("", {
+ /*   auto choice = forceMode > -1 ? Optional<int>(forceMode) : view->chooseFromList("", {
         View::ListElem("Choose your role:", View::TITLE), "Keeper", "Adventurer", "Adventurer vs. Keeper",
         View::ListElem("Or simply:", View::TITLE), "Load a game", "Change settings", "View high scores", "Quit"}, lastIndex);
     if (!choice)
-      continue;
-    lastIndex = *choice;
+      continue;*/
+    Optional<int> choice = 1;
+ //   lastIndex = *choice;
     Optional<string> savedGame;
     if (choice == 2) {
       savedGame = chooseSaveFile({
@@ -192,12 +193,12 @@ int main(int argc, char* argv[]) {
       Options::handle(view, OptionSet::GENERAL);
       continue;
     }
-    if (choice == 0) {
+/*    if (choice == 0) {
       Options::handle(view, OptionSet::KEEPER, 1000);
     } 
     if (choice == 1) {
       Options::handle(view, OptionSet::ADVENTURER, 1000);
-    } 
+    } */
     if (choice == 5) {
       unique_ptr<Model> m(new Model(view));
       m->showHighscore();
@@ -246,6 +247,7 @@ int main(int argc, char* argv[]) {
           model->update(double(view->getTimeMilli()) / 300);
       }
     } catch (GameOverException ex) {
+      exit(0);
     } catch (SaveGameException ex) {
       bool ready = false;
       thread t([&] {
