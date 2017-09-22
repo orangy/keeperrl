@@ -272,14 +272,26 @@ static Furniture get(FurnitureType type, TribeId tribe) {
           .setCanHide()
           .setFireInfo(Fire(500, 0.5))
           .setDestroyable(40);
-    case FurnitureType::DOOR:
-      return Furniture("door", ViewObject(ViewId::DOOR, ViewLayer::FLOOR), type, tribe)
+    case FurnitureType::WOODEN_DOOR:
+      return Furniture("wooden door", ViewObject(ViewId::WOODEN_DOOR, ViewLayer::FLOOR), type, tribe)
           .setBlockingEnemies()
           .setCanHide()
           .setBlockVision()
           .setFireInfo(Fire(500, 0.5))
           .setDestroyable(100)
           .setClickType(FurnitureClickType::LOCK);
+    case FurnitureType::STONE_DOOR:
+      return Furniture("stone door", ViewObject(ViewId::STONE_DOOR, ViewLayer::FLOOR), type, tribe)
+          .setBlockingEnemies()
+          .setCanHide()
+          .setBlockVision()
+          .setDestroyable(300);
+    case FurnitureType::STEEL_DOOR:
+      return Furniture("steel door", ViewObject(ViewId::STEEL_DOOR, ViewLayer::FLOOR), type, tribe)
+          .setBlockingEnemies()
+          .setCanHide()
+          .setBlockVision()
+          .setDestroyable(1000);
     case FurnitureType::LOCKED_DOOR:
       return Furniture("locked door", ViewObject(ViewId::LOCKED_DOOR, ViewLayer::FLOOR), type, tribe)
           .setBlocking()
@@ -551,7 +563,9 @@ bool FurnitureFactory::hasSupport(FurnitureType type, Position pos) {
       return pos.plus(Vec2(0, 1)).isWall();
     case FurnitureType::TORCH_W:
       return pos.minus(Vec2(1, 0)).isWall();
-    case FurnitureType::DOOR:
+    case FurnitureType::WOODEN_DOOR:
+    case FurnitureType::STONE_DOOR:
+    case FurnitureType::STEEL_DOOR:
       return (pos.minus(Vec2(0, 1)).isWall() && pos.minus(Vec2(0, -1)).isWall()) ||
              (pos.minus(Vec2(1, 0)).isWall() && pos.minus(Vec2(-1, 0)).isWall());
     default:

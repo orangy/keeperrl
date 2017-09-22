@@ -21,9 +21,9 @@ const vector<BuildInfo>& BuildInfo::get() {
   if (!buildInfo) {
     buildInfo = vector<BuildInfo>({
       BuildInfo(BuildInfo::DIG, "Dig or cut tree", "", 'd').setTutorialHighlight(TutorialHighlight::DIG_OR_CUT_TREES),
-      BuildInfo({FurnitureType::MOUNTAIN, {ResourceId::STONE, 10}}, "Fill up tunnel", {},
+      BuildInfo({FurnitureType::MOUNTAIN, {ResourceId::STONE, 10}}, "Fill up tunnel", {{RequirementId::TECHNOLOGY, TechId::STONE_WORKING}},
           "Fill up one tile at a time. Cutting off an area is not allowed.", 0, "Structure"),
-      BuildInfo({FurnitureType::DUNGEON_WALL, {ResourceId::STONE, 2}}, "Reinforce wall", {},
+      BuildInfo({FurnitureType::DUNGEON_WALL, {ResourceId::STONE, 2}}, "Reinforce wall", {{RequirementId::TECHNOLOGY, TechId::STONE_WORKING}},
           "Reinforce wall. +" + toString<int>(100 * CollectiveConfig::getEfficiencyBonus(FurnitureType::DUNGEON_WALL)) +
           " efficiency to surrounding tiles.", 0, "Structure")
     });
@@ -94,15 +94,15 @@ const vector<BuildInfo>& BuildInfo::get() {
       BuildInfo({FurnitureType::FORGE, {ResourceId::IRON, 20}}, "Forge",
           {{RequirementId::TECHNOLOGY, TechId::IRON_WORKING}}, "Produces iron weapons and armor.", 0, workshop),
       BuildInfo({FurnitureType::LABORATORY, {ResourceId::STONE, 10}}, "Laboratory",
-          {{RequirementId::TECHNOLOGY, TechId::ALCHEMY}}, "Produces magical potions.", 0, workshop),
+          {{RequirementId::TECHNOLOGY, TechId::ALCHEMY}, {RequirementId::TECHNOLOGY, TechId::STONE_WORKING}}, "Produces magical potions.", 0, workshop),
       BuildInfo({FurnitureType::JEWELER, {ResourceId::WOOD, 12}}, "Jeweler",
           {{RequirementId::TECHNOLOGY, TechId::JEWELLERY}}, "Produces magical rings and amulets.", 0, workshop),
       BuildInfo({FurnitureType::STEEL_FURNACE, {ResourceId::STONE, 100}}, "Steel furnace",
-          {{RequirementId::TECHNOLOGY, TechId::STEEL_MAKING}}, "Turns iron ore into steel.", 0, workshop),
+          {{RequirementId::TECHNOLOGY, TechId::STEEL_MAKING}, {RequirementId::TECHNOLOGY, TechId::STONE_WORKING}}, "Turns iron ore into steel.", 0, workshop),
       BuildInfo({FurnitureType::DEMON_SHRINE, {ResourceId::GOLD, 30}}, "Demon shrine", {},
           "Summons various demons to your dungeon."),
       BuildInfo({FurnitureType::BEAST_CAGE, {ResourceId::WOOD, 8}}, "Beast cage", {}, "Beasts sleep here."),
-      BuildInfo({FurnitureType::GRAVE, {ResourceId::STONE, 15}}, "Graveyard", {},
+      BuildInfo({FurnitureType::GRAVE, {ResourceId::STONE, 15}}, "Graveyard", {{RequirementId::TECHNOLOGY, TechId::STONE_WORKING}},
           "Spot for hauling dead bodies and for undead creatures to sleep in.", 'g'),
       BuildInfo({FurnitureType::PRISON, {ResourceId::IRON, 5}}, "Prison", {}, "Captured enemies are kept here.", 0),
       BuildInfo({FurnitureType::TORTURE_TABLE, {ResourceId::IRON, 20}}, "Torture table", {},
@@ -118,9 +118,13 @@ const vector<BuildInfo>& BuildInfo::get() {
       BuildInfo({FurnitureLayer::CEILING, FurnitureLayer::MIDDLE}, "Remove construction", "", 'e', "Orders")
           .setTutorialHighlight(TutorialHighlight::REMOVE_CONSTRUCTION),
       BuildInfo(BuildInfo::FORBID_ZONE, "Forbid zone", "Mark tiles to keep minions from entering.", 0, "Orders"),
-      BuildInfo({FurnitureType::DOOR, {ResourceId::WOOD, 5}}, "Door", {},
+      BuildInfo({FurnitureType::WOODEN_DOOR, {ResourceId::WOOD, 5}}, "Wooden Door", {},
           "Click on a built door to lock it.", 'o', "Installations")
              .setTutorialHighlight(TutorialHighlight::BUILD_DOOR),
+      BuildInfo({FurnitureType::STONE_DOOR, {ResourceId::STONE, 5}}, "Stone Door", {{RequirementId::TECHNOLOGY, TechId::STONE_WORKING}},
+          "Click on a built door to lock it.", 0, "Installations"),
+      BuildInfo({FurnitureType::STEEL_DOOR, {ResourceId::STEEL, 5}}, "Steel Door", {{RequirementId::TECHNOLOGY, TechId::STEEL_MAKING}},
+          "Click on a built door to lock it.", 0, "Installations"),
       BuildInfo({FurnitureType::BRIDGE, {ResourceId::WOOD, 5}}, "Bridge", {},
         "Build it to pass over water or lava.", 0, "Installations"),
       BuildInfo({FurnitureType::BARRICADE, {ResourceId::WOOD, 5}}, "Barricade", {}, "", 0, "Installations"),
@@ -132,7 +136,7 @@ const vector<BuildInfo>& BuildInfo::get() {
           "A board where you can leave a message for other players.", 0, "Installations"),
       BuildInfo({FurnitureType::EYEBALL, {ResourceId::WOOD, 30}}, "Eyeball", {},
         "Makes the area around it visible.", 0, "Installations"),
-      BuildInfo({FurnitureType::PORTAL, {ResourceId::STONE, 60}}, "Portal", {},
+      BuildInfo({FurnitureType::PORTAL, {ResourceId::STONE, 60}}, "Portal", {{RequirementId::TECHNOLOGY, TechId::STONE_WORKING}},
         "Opens a connection if another portal is present.", 0, "Installations"),
       BuildInfo({FurnitureType::MINION_STATUE, {ResourceId::MANA, 50}}, "Statue", {},
         "Increases minion population limit by " +

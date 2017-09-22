@@ -727,14 +727,14 @@ static BuildingType getBuildingInfo(SettlementInfo info) {
           c.wall = FurnitureType::WOOD_WALL;
           c.floorInside = FurnitureType::FLOOR;
           c.floorOutside = FurnitureType::GRASS;
-          c.door = FurnitureFactory(info.tribe, FurnitureType::DOOR);
+          c.door = FurnitureFactory(info.tribe, FurnitureType::WOODEN_DOOR);
       );
     case BuildingId::WOOD_CASTLE:
       return CONSTRUCT(BuildingType,
           c.wall = FurnitureType::WOOD_WALL;
           c.floorInside = FurnitureType::FLOOR;
           c.floorOutside = FurnitureType::MUD;
-          c.door = FurnitureFactory(info.tribe, FurnitureType::DOOR);
+          c.door = FurnitureFactory(info.tribe, FurnitureType::WOODEN_DOOR);
       );
     case BuildingId::MUD: 
       return CONSTRUCT(BuildingType,
@@ -746,21 +746,21 @@ static BuildingType getBuildingInfo(SettlementInfo info) {
           c.wall = FurnitureType::CASTLE_WALL;
           c.floorInside = FurnitureType::FLOOR;
           c.floorOutside = FurnitureType::MUD;
-          c.door = FurnitureFactory(info.tribe, FurnitureType::DOOR);
+          c.door = FurnitureFactory(info.tribe, FurnitureType::STONE_DOOR);
       );
     case BuildingId::DUNGEON:
       return CONSTRUCT(BuildingType,
           c.wall = FurnitureType::MOUNTAIN;
           c.floorInside = FurnitureType::FLOOR;
           c.floorOutside = FurnitureType::FLOOR;
-          c.door = FurnitureFactory(info.tribe, FurnitureType::DOOR);
+          c.door = FurnitureFactory(info.tribe, FurnitureType::STONE_DOOR);
       );
     case BuildingId::DUNGEON_SURFACE:
       return CONSTRUCT(BuildingType,
           c.wall = FurnitureType::MOUNTAIN;
           c.floorInside = FurnitureType::FLOOR;
           c.floorOutside = FurnitureType::HILL;
-          c.door = FurnitureFactory(info.tribe, FurnitureType::DOOR);
+          c.door = FurnitureFactory(info.tribe, FurnitureType::WOODEN_DOOR);
       );
   }
 }
@@ -2139,7 +2139,7 @@ static PLevelMaker islandVaultMaker(RandomGen& random, SettlementInfo info, bool
       unique<Margin>(1, std::move(inside))
       );
   if (door)
-    buildingMaker->addMaker(unique<LevelExit>(FurnitureFactory(TribeId::getMonster(), FurnitureType::DOOR)));
+    buildingMaker->addMaker(unique<LevelExit>(FurnitureFactory(TribeId::getMonster(), FurnitureType::WOODEN_DOOR)));
   return unique<MakerQueue>(
         unique<Empty>(SquareChange::reset(FurnitureType::WATER)),
         unique<Margin>(1, std::move(buildingMaker)));
@@ -2501,7 +2501,7 @@ PLevelMaker LevelMaker::roomLevel(RandomGen& random, CreatureFactory roomFactory
   queue->addMaker(underground(random, waterFactory, lavaFactory));
   queue->addMaker(unique<RoomMaker>(random.get(8, 15), 4, 7, SquareChange::none(),
         FurnitureType::MOUNTAIN, unique<Empty>(FurnitureType::FLOOR)));
-  queue->addMaker(unique<Connector>(FurnitureFactory(TribeId::getHostile(), FurnitureType::DOOR), 0.5));
+  queue->addMaker(unique<Connector>(FurnitureFactory(TribeId::getHostile(), FurnitureType::WOODEN_DOOR), 0.5));
   queue->addMaker(unique<Furnitures>(Predicate::attrib(SquareAttrib::EMPTY_ROOM), 0.05, furniture));
   for (StairKey key : down)
     queue->addMaker(unique<Stairs>(StairDirection::DOWN, key, Predicate::type(FurnitureType::FLOOR)));
@@ -2540,7 +2540,7 @@ class SokobanFromFile : public LevelMaker {
           builder->addAttrib(v, SquareAttrib::SOKOBAN_ENTRY);
           break;
         case '+':
-          builder->putFurniture(v, FurnitureParams{FurnitureType::DOOR, TribeId::getHostile()});
+          builder->putFurniture(v, FurnitureParams{FurnitureType::WOODEN_DOOR, TribeId::getHostile()});
           break;
         case '0':
           builder->putCreature(v, boulderFactory.random());

@@ -12,7 +12,7 @@ void FurnitureClick::handle(FurnitureClickType type, Position pos, WConstFurnitu
       pos.replaceFurniture(furniture, FurnitureFactory::get(FurnitureType::LOCKED_DOOR, furniture->getTribe()));
       break;
     case FurnitureClickType::UNLOCK:
-      pos.replaceFurniture(furniture, FurnitureFactory::get(FurnitureType::DOOR, furniture->getTribe()));
+      pos.replaceFurniture(furniture, FurnitureFactory::get(FurnitureType::WOODEN_DOOR, furniture->getTribe()));
     break;
   }
 }

@@ -210,7 +210,9 @@ const char* ViewObject::getDefaultDescription() const {
     case ViewId::COFFIN: return "Coffin";
     case ViewId::CEMETERY: return "Cemetery";
     case ViewId::GRAVE: return "Grave";
-    case ViewId::DOOR: return "Door (click to lock)";
+    case ViewId::WOODEN_DOOR: return "Wooden Door (click to lock)";
+    case ViewId::STONE_DOOR: return "Stone Door (click to lock)";
+    case ViewId::STEEL_DOOR: return "Steel Door (click to lock)";
     case ViewId::LOCKED_DOOR: return "Door (click to unlock)";
     case ViewId::BARRICADE: return "Barricade";
     case ViewId::WOOD_FLOOR1:
